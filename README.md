@@ -34,7 +34,9 @@ Invokes the method with the given name on the given instance of the given class 
 Invokes the method with the given name on the given instance of the given class name with the given arguments, using the method specified by the given argument types.
 #### `TestManager.verifyMethod(Class<?> c, String methodName, Class<?>[] argumentTypes, Class<?> returnType, String... modifiers)`
 Verify whether the method with the given name exists on the given class, with the given argument types, return type, and modifiers. The modifiers are optional, and can be any of the following: `public`, `private`, `protected`, `static`, `abstract`, `final`, `synchronized`, `native`, `strictfp`, `default`.
-
+#### `TestManager.setTimeout(int timeout)`
+Default is 1000 (in ms). TestManager will throw an exception if any of its method fails to complete in the specified timeout.
+<br /><br /><br />
 All methods should be called on a `TestManager` instance.
 
 For example, the following 2 snippets of code are functionally equivalent, except the second one is using this helper library.
@@ -58,6 +60,7 @@ TestManager manager = new TestManager();
 
 Class<?> listClass = manager.getClass("MyDoublyLinkedList");
 manager.verifyMethod(listClass, "getSize", new Class<?>[0], int.class, "public"); // optional
+manager.setTimeout(2000); // optional
 
 Object list = manager.createInstance(listClass);
 manager.invoke(listClass, list, "add", 2);
